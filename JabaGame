@@ -97,50 +97,50 @@ public class Main
           
           while(isGameContinue(myHouses)) {
               int randScoreNum = randomNumber();
-              if(PlayerWhite.getTurn() == true) {
+              if(PlayerWhite.getTurn() == true) { //Если ход белого то текущий игрок белый и меняем ходы местами
                   currentPlayer = PlayerWhite;
                   PlayerWhite.setTurn(false);
                   PlayerBlack.setTurn(true);
              }
-             else {
+             else { //Зеркально
                  currentPlayer = PlayerBlack;
                  PlayerWhite.setTurn(true);
                   PlayerBlack.setTurn(false);
              }
              System.out.println(currentPlayer.getName() + " plays " + "(" + currentPlayer.getScore() +" points)"  );
              System.out.println("Houses: ");
-             printAllHouses(myHouses);
+             printAllHouses(myHouses);//Выводит все дома
              System.out.println("Random number drawn: " + randScoreNum);
-             int input = setInput();
+             int input = setInput(); //Пользователь вводит инпут
              
-             while(!addScoreToHouse(myHouses, currentPlayer, input, randScoreNum)) {
+             while(!addScoreToHouse(myHouses, currentPlayer, input, randScoreNum)) { //Пока функция возвращает ФОЛС Заново вводить инпут
                  input = setInput();
              }
           }
           System.out.println("\nGAME OVER: ");
-          if(PlayerWhite.getScore() > PlayerBlack.getScore()) {
+          if(PlayerWhite.getScore() > PlayerBlack.getScore()) { //Если очки белого игрока больше то он победил
               System.out.println("WHITE WINS");
-          } else if (PlayerWhite.getScore() < PlayerBlack.getScore()) {
+          } else if (PlayerWhite.getScore() < PlayerBlack.getScore()) {//Если очки черного игрока больше то он победил
               System.out.println("BLACK WINS");
-          } else {
+          } else {//Если одинаковые то ничья
               System.out.println("SPORE");
           }
           
           
    }
    
-    public static int setInput() {
+    public static int setInput() { //Создает и сканирует инпут
         Scanner scanner = new Scanner(System.in);
         System.out.println("To which House do you wish to place the number?");
         int input = scanner.nextInt();
-        while(input < 1 || input > 4) {
+        while(input < 1 || input > 4) { // Если инпут не подходит то сканирует до тех пор пока не подойдет
             System.out.println("\nPls try again: ");
             input = scanner.nextInt();
         }
-        return --input;
+        return --input; //ВОЗВРАЩАЕТ ИНПУТ - 1!!!
     }
    
-   public static boolean isGameContinue(ArrayList<House> Houses) {
+   public static boolean isGameContinue(ArrayList<House> Houses) { // Пока хотя бы один дом открыт возвращает ТРУ иначе ФОЛС
        int counter = 0;
        for(int i = 0; i < Houses.size(); i++) {
            if(Houses.get(i).getIsOpened()) {
@@ -150,17 +150,17 @@ public class Main
        return false;
    }
    
-    public static boolean addScoreToHouse(ArrayList<House> Houses, Player current, int index, int randScore) {
-        if(!Houses.get(index).getIsOpened()) {
+    public static boolean addScoreToHouse(ArrayList<House> Houses, Player current, int index, int randScore) { // ф-я добавляет очки к ХАУСУ и возвращает ФОЛС в случае ошибки пользователя
+        if(!Houses.get(index).getIsOpened()) { //Если ХАУС закрыт то выводит NOPE и возвращает ФОЛС
             System.out.println("NOPE");
             return false;
         }
-        if(Houses.get(index).getSum() + randScore < 31) {
+        if(Houses.get(index).getSum() + randScore < 31) { //Если сумма в доме + рандомные очки меньше 31 то плюсует и возвращает ТРУ
             Houses.get(index).setSum(Houses.get(index).getSum() + randScore);
             Houses.get(index).getNumber().add(randScore);
             return true;
         }
-        if (Houses.get(index).getSum() + randScore == 31) {
+        if (Houses.get(index).getSum() + randScore == 31) {// Если сумма в домк + рандомные очки == 31 то анулирует сумму и чистит массив. Выводит поздравления и возвращает ТРУ
             current.setScore(current.getScore() + 50);
             Houses.get(index).getNumber().clear();
             Houses.get(index).setSum(0);
@@ -168,13 +168,13 @@ public class Main
             System.out.println("*** " + current.getName() + " player gains 50 points!");
             return true;
         }
-        for(int i = 0; i < Houses.size(); i++) {
+        for(int i = 0; i < Houses.size(); i++) { //Если все предыдущие ифы не сработали то прогоняет массив ХАУСАВ
             if(Houses.get(i).getSum() + randScore < 31) {
-                System.out.println("Think...");
+                System.out.println("Think..."); // Если в КАЖДОМ ХАУСЕ сумма не будет меньше 31 то выводит ДУМАЙ и возвращает ФОЛС
                 return false;
             }
         }
-        Houses.get(index).SetOpened(false);
+        Houses.get(index).SetOpened(false); // Если ничего не прошло закрывает ХАУС
         return true;
     } 
    
@@ -188,7 +188,7 @@ public class Main
         }
   }
    
-   public static int randomNumber () {
+   public static int randomNumber () { //рандомизирует и возвращает интовое число
 
     int max = 15; 
     int min = 1; 
