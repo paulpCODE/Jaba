@@ -1,3 +1,6 @@
+
+//#Authors: Ioffe & Pavel & Roma.
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,15 +35,15 @@ class House{
         m_isOpened = isOpened;
     }
     
+    // brief prints all members of house class 
     public void printHouse(){
-          System.out.print(m_houseName +"("+ "Sum: " + m_sum + ")" + " : " );
+          System.out.print(m_houseName +"("+ "Sum: " + m_sum + ")" + " : " );  
           for (int i = 0; i<m_Number.size();i++){
-               System.out.print(m_Number.get(i) + " ");
-               
+               System.out.print(m_Number.get(i) + " "); 
           }
            System.out.println();
     }
-    
+    //brief constructor6 creates an object of a class with a given name 
     public House(String name){
         m_sum = 0;
         m_houseName = name;
@@ -55,6 +58,10 @@ class Player {
     private String m_name;
     private boolean m_turn;
     private int m_score;
+    
+    // brief constructor creates player
+    // white player plays first, so we create an object with the turn property
+    // if turn == true -> player name -> White 
     public Player(boolean turn) {
         m_score = 0;
         if(turn) {
@@ -87,15 +94,16 @@ public class Main
 {
    public static void main(String args[]) {
           //Scanner in = new Scanner(System.in);
-          ArrayList<House> myHouses = new ArrayList<>();
+          ArrayList <House> myHouses = new ArrayList<>();
           for(int i = 0; i < 4; i++) {
               myHouses.add(new House("H" + (i + 1)));
           }
           Player PlayerWhite = new Player(true);
           Player PlayerBlack = new Player(false);
-          Player currentPlayer = new Player(true);
+          Player currentPlayer = new Player(true); // current player . We assign reference to user, who will play to play current player,
+          // so we can work with needed user with one variable 
           
-          while(isGameContinue(myHouses)) {
+          while(isGameContinue(myHouses)) { // while we have opened houses -> game continues
               int randScoreNum = randomNumber();
               if(PlayerWhite.getTurn() == true) { //Если ход белого то текущий игрок белый и меняем ходы местами
                   currentPlayer = PlayerWhite;
