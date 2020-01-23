@@ -176,12 +176,11 @@ public class Main
             return true;
         }
         for(int i = 0; i < Houses.size(); i++) { //Если все предыдущие ифы не сработали то прогоняет массив ХАУСАВ
-            if(Houses.get(i).getSum() + randScore <= 31) {
+            if(Houses.get(i).getSum() + randScore <= 31 && Houses.get(i).getIsOpened()) {
                 System.out.println("Think..."); // Если в КАЖДОМ ХАУСЕ сумма не будет меньше 31 то выводит ДУМАЙ и возвращает ФОЛС
                 return false;
             }
         }
-        Houses.get(index).setSum(Houses.get(index).getSum() + randScore);
         Houses.get(index).SetOpened(false); // Если ничего не прошло закрывает ХАУС
         return true;
     } 
